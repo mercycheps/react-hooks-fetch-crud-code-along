@@ -12,18 +12,39 @@ function ShoppingList() {
   useEffect(() => {
     fetch("http://localhost:4000/items")
       .then((r) => r.json())
-      .then((items) =>  setItems(items));
+      .then((items) => setItems(items));
   }, []);
+// add this callback function,delete
+function handleDeleteItem(deletedItem) {
+  console.log("In ShoppingCart:", deletedItem);
+  const updatedItems = items.filter((item) => item.id !== deletedItem.id);
+  setItems(updatedItems);
+}
+
+
   // handleAddItem
   function handleAddItem(newItem) {
     console.log("In ShoppingList:", newItem);
   }
 
-// handlechange
+  // handlechange
   function handleCategoryChange(category) {
     setSelectedCategory(category);
   }
-// display,filter
+  
+  function handleUpdateItem(updatedItem) {
+    const updatedItems = items.map((item) => {
+      if (item.id === updatedItem.id) {
+        return updatedItem;
+      } else {
+        return item;
+      }
+    });
+    setItems(updatedItems);
+  }
+
+
+  // display,filter
   const itemsToDisplay = items.filter((item) => {
     if (selectedCategory === "All") return true;
 
@@ -33,14 +54,19 @@ function ShoppingList() {
   return (
     <div className="ShoppingList">
       {/* items prop */}
-      <ItemForm  OnAddItem={handleAddItem}/>
+      <ItemForm OnAddItem={handleAddItem} />
       <Filter
         category={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
       <ul className="Items">
         {itemsToDisplay.map((item) => (
-          <Item key={item.id} item={item} />
+          <Item 
+          key={item.id}
+           item={item} 
+           onUpdateItem={handleUpdateItem} 
+           onDeleteItem={handleDeleteItem}
+           />
         ))}
       </ul>
     </div>
