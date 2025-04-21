@@ -143,12 +143,6 @@
       "category": "Dairy",
       "isInCart": true,
       "id": 25
-    },
-    {
-      "name": "icecream",
-      "category": "Dairy",
-      "isInCart": false,
-      "id": 26
     }
   ]
 }

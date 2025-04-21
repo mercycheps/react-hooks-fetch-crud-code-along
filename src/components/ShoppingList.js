@@ -24,7 +24,8 @@ function handleDeleteItem(deletedItem) {
 
   // handleAddItem
   function handleAddItem(newItem) {
-    console.log("In ShoppingList:", newItem);
+    setItems([...items, newItem]);
+
   }
 
   // handlechange
@@ -54,7 +55,7 @@ function handleDeleteItem(deletedItem) {
   return (
     <div className="ShoppingList">
       {/* items prop */}
-      <ItemForm OnAddItem={handleAddItem} />
+      <ItemForm onAddItem={handleAddItem} />
       <Filter
         category={selectedCategory}
         onCategoryChange={handleCategoryChange}
